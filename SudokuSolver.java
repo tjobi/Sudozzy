@@ -40,13 +40,13 @@ public class SudokuSolver implements ISudokuSolver {
 		// };
 
 		int[][] soduko = {
-			{1, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 1, 0, 0, 0, 0},
+			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 3, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0, 0, 0, 0, 0},
-			{0, 0, 0, 0, 0, 0, 0, 0, 0},
+			{0, 0, 0, 0, 6, 0, 0, 0, 0},
+			{0, 0, 0, 0, 7, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0, 0},
 			{0, 0, 0, 0, 0, 0, 0, 0, 0},
 		};
@@ -85,6 +85,7 @@ public class SudokuSolver implements ISudokuSolver {
 				setValue(i, j, res.get(i*(size*size)+j));
 			}
 		}
+		System.out.println("Solved Puzzle :)");
 		return true;
 	}
 
@@ -125,31 +126,25 @@ public class SudokuSolver implements ISudokuSolver {
 		
 
 
-		System.out.println("X" + X);	
+		//System.out.println("X" + X);	
 
-		for (int V : D.get(X)) {
-			System.out.println("V," + V);
-			System.out.println("D");
-			System.out.println(D);
+		var domainX = new ArrayList<Integer>(D.get(X));
+		//System.out.println(String.format("D for X:%d -> %s, length: %d", X, domainX.toString(), domainX.size()));
+		for (int V : domainX) {
 			if (AC_FC(X, V)) {
 				asn.set(X, V);
-				//System.out.println("D");
-				//System.out.println(D);
-				//System.out.println(asn);
 				var R = FC(asn);
-				//System.out.println(R);
-
+				
 				if (R != null) {
-					System.out.println("Ups, return something");
 					return R;
 				}
-				
 				asn.set(X, 0);
+				
 				D = Dold;
-			}
-			else {
+			} else {
 				//System.out.println("Dold:");
 				//System.out.println(Dold);
+				
 				D = Dold;
 			}
 		}
